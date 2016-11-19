@@ -1,0 +1,34 @@
+// lexical Parser DEMO
+#include <iostream>
+#include <regex>
+
+using namespace std;
+int main() {
+	
+	smatch sm;
+	fstream file;
+	 file.open("Text.txt");
+	
+	 regex vc("((?!.*\")(.*)(?=\\/\\*).*(?=\\*\\/)\\*\\/(.*))");
+	 string input;
+	 //cout << regex_search(input, color);
+	 string fin = "";
+	 while (getline(file, input)) {
+		
+		 if (regex_search(input, sm, vc)) {
+			 fin = sm.str(1);
+			 string temp = sm.str(2);
+			 string temp2 = sm.str(3);
+			 fin += temp + '\n';
+			 for (auto it:sm)
+			 {
+				 cout << it << endl;
+			 }
+		 }
+		 else {
+			 fin += input+'\n';
+		 }
+	 }
+   return 0;
+   
+}
